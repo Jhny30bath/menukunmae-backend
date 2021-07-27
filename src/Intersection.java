@@ -13,11 +13,13 @@ import java.util.Scanner;
 
 public class Intersection {
     public static void main(String... args) throws Exception {
+
         /**
          * This is the main method
          * which is very important for
          * execution for a java program.
          */
+
         List <String> ingredients = new ArrayList<String>();
         String input;
         System.out.print("Input ingredients : ");
@@ -62,8 +64,6 @@ public class Intersection {
 
         List<Food> result = new Intersection().searchFood(ingredients, FOOD_LISTS);
         System.out.println("Result is : "+result.get(0).getMenuName());
-
-
     }
 
     /**
