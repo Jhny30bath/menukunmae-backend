@@ -39,7 +39,7 @@ public class User {
         this.user_height = user_height;
     }
 
-    public float getUser_height({
+    public float getUser_height(){
         return this.user_height;
     }
 

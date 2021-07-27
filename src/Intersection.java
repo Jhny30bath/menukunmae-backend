@@ -27,6 +27,7 @@ public class Intersection {
         input = scanner.nextLine();
         if(!input.equals("q")) {
             ingredients.add(input);
+            System.out.println("Ingredients :"+ingredients);
         }
         while(!(input.equals("q"))){
             System.out.print("Input ingredients : ");
@@ -63,7 +64,24 @@ public class Intersection {
                 new Food [] {ramen, kfc, tomyumkung, massaman}));
 
         List<Food> result = new Intersection().searchFood(ingredients, FOOD_LISTS);
-        System.out.println("Result is : "+result.get(0).getMenuName());
+        System.out.print("Cal ? : ");
+        input = scanner.nextLine();
+        if(!input.equals("n")){
+            float cals = Float.parseFloat(input);
+            System.out.println("Cals is : "+cals);
+            List<Food> output_food = new ArrayList<Food>();
+            for(int i = 0; i < result.size(); i++){
+                if(cals == result.get(i).getMenuCalories()){
+                    System.out.println(result.get(i).getMenuCalories());
+                    output_food.add(result.get(i));
+                }
+            }
+            System.out.println("Result is : "+output_food.get(0).getMenuName());
+        }
+        else{
+            System.out.println("Result is : "+result.get(0).getMenuName());
+        }
+
     }
 
     /**
@@ -94,7 +112,7 @@ public class Intersection {
 
     public List<List<Food>> intersection_food(List<String> ingredients , List<Food> foodlist) {
         List<List<Food>> all_list = new ArrayList<List<Food>>();
-        List<List<Food>> output = new ArrayList<List<Food>>();
+        List<List<Food>> output;
         for (int i = 0; i < ingredients.size(); i++) {
             List<Food> food = getAllFood(foodlist, ingredients.get(i));
             all_list.add(food);
@@ -119,17 +137,9 @@ public class Intersection {
         List<List<Food>> output = new ArrayList<List<Food>>();
         for (int i = 0; i < all_list.size(); i++) {
             if(i != all_list.size() - 1) {
-                if(all_list.size() != 2) {
-                    List<Food> list_a = all_list.get(i);
-                    List<Food> list_b = all_list.get(i+1);
-                    output.add(intersection(list_a, list_b));
-                }
-                else {
-                    List<Food> list_a = all_list.get(i);
-                    List<Food> list_b = all_list.get(i+1);
-                    output.add(intersection(list_a, list_b));
-
-                }
+                List<Food> list_a = all_list.get(i);
+                List<Food> list_b = all_list.get(i+1);
+                output.add(intersection(list_a, list_b));
             }
         }
 
