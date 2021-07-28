@@ -64,6 +64,10 @@ public class Intersection {
                 new Food [] {ramen, kfc, tomyumkung, massaman}));
 
         List<Food> result = new Intersection().searchFood(ingredients, FOOD_LISTS);
+        List<Food> food = new Intersection().getAllFood(FOOD_LISTS, "ไก่");
+        for(int i = 0; i < food.size(); i++){
+            System.out.println("Food : "+food.get(i).getMenuName());
+        }
         System.out.print("Cal ? : ");
         input = scanner.nextLine();
         if(!input.equals("n")){
@@ -78,10 +82,6 @@ public class Intersection {
             }
             System.out.println("Result is : "+output_food.get(0).getMenuName());
         }
-        else{
-            System.out.println("Result is : "+result.get(0).getMenuName());
-        }
-
     }
 
     /**
@@ -156,6 +156,15 @@ public class Intersection {
             if(ingredients.equals(foodlist.get(i).getIngredients()) == true) {
                 output.add(foodlist.get(i));
             }
+        }
+        return output;
+    }
+
+    public List<List<Food>> searchFood2(List<String> ingredients, List<Food> foodList){
+        List<List<Food>> output = new ArrayList<List<Food>>();
+        for(int i = 0; i < ingredients.size(); i++){
+            List<Food> food = getAllFood(foodList, ingredients.get(i));
+            output.add(food);
         }
         return output;
     }
