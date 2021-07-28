@@ -63,10 +63,9 @@ public class Intersection {
                 new Food[]{ramen, kfc, tomyumkung, massaman}));
 
         List<Food> result = new Intersection().searchFood(ingredients, FOOD_LISTS);
-        List<Food> food = new Intersection().getAllFood(FOOD_LISTS, "ไก่");
-        for (int i = 0; i < food.size(); i++) {
-            System.out.println("Food : " + food.get(i).getMenuName());
-        }
+        List<List<Food>> foods_lists = new Intersection().union_food(new ArrayList<String>(Arrays.asList(
+                new String[]{"ไก่", "พริก"})), FOOD_LISTS);
+        System.out.println(foods_lists);
         System.out.print("Cal ? : ");
         input = scanner.nextLine();
         if (!input.equals("n")) {
@@ -100,6 +99,8 @@ public class Intersection {
 
         for (int i = 0; i < foodlist.size(); i++) {
             for (int j = 0; j < foodlist.get(i).getIngredients().size(); j++) {
+                System.out.println("Ing meth : " + ingredient);
+                System.out.println("Ing methOK : " + foodlist.get(i).getIngredients().get(j));
                 if (ingredient == foodlist.get(i).getIngredients().get(j)) {
                     result.add(foodlist.get(i));
                 }
@@ -117,6 +118,19 @@ public class Intersection {
             all_list.add(food);
         }
         output = intersection_loop(all_list);
+        return output;
+    }
+
+    public List<List<Food>> union_food(List<String> ingredients, List<Food> foodlist) {
+        List<List<Food>> all_list = new ArrayList<List<Food>>();
+        List<List<Food>> output;
+        for (int i = 0; i < ingredients.size(); i++) {
+            System.out.println("Ing : " + ingredients.get(i));
+            List<Food> food = getAllFood(foodlist, ingredients.get(i));
+            System.out.println("Food ! : " + food);
+            all_list.add(food);
+        }
+        output = union_loop(all_list);
         return output;
     }
 
@@ -144,6 +158,23 @@ public class Intersection {
 
         if (output.size() != 1) {
             output = intersection_loop(output);
+        }
+
+        return output;
+    }
+
+    public List<List<Food>> union_loop(List<List<Food>> all_list) {
+        List<List<Food>> output = new ArrayList<List<Food>>();
+        for (int i = 0; i < all_list.size(); i++) {
+            if (i != all_list.size() - 1) {
+                List<Food> list_a = all_list.get(i);
+                List<Food> list_b = all_list.get(i + 1);
+                output.add(union(list_a, list_b));
+            }
+        }
+
+        if (output.size() != 1) {
+            output = union_loop(output);
         }
 
         return output;
