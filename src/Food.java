@@ -39,7 +39,7 @@ public class Food {
         this.ingredients = ingredients;
     }
 
-    public List<String> getIngredients(){
+    public List<String> getIngredients() {
         return ingredients;
     }
 
